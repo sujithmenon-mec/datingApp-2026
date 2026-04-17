@@ -18,7 +18,7 @@ public class AccountController(AppDbContext context, ITokenService tokenService)
         using var hmac = new HMACSHA512();
         var user = new AppUser
         {
-         DisplayName = registerDto.Name,
+         DisplayName = registerDto.DisplayName,
          Email = registerDto.Email,
          PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password)),
          PasswordSalt = hmac.Key

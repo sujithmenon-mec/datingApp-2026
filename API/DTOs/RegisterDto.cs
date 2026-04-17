@@ -3,7 +3,7 @@ namespace API.DTOs;
 
 public class RegisterDto {
     [Required]
-    public string Name { get; set; } = "";
+    public string DisplayName { get; set; } = "";
 
     [Required]
     [EmailAddress]
