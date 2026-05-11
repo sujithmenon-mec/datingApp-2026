@@ -37,10 +37,13 @@
         >
         <a routerLink="/lists" routerLinkActive="text-accent">Lists</a>
         <a routerLink="/messages" routerLinkActive="text-accent">Messages</a>
+        <a *appHasRole="['Admin', 'Moderator']" routerLink="/admin" routerLinkActive="text-accent"
+          >Admin</a
+        >
       }
       <a routerLink="/errors" routerLinkActive="text-accent">Errors</a>
     </nav>
-    @if(busyService.busyRequestCount() > 0){
+    @if (busyService.busyRequestCount() > 0) {
       <span class="loading loading-spinner text-accent"></span>
     }
     <div class="flex align-middle ml-auto gap-3">
@@ -62,14 +65,16 @@
               clip-rule="evenodd"
             />
           </svg>
-          <span>{{selectedTheme()}}</span>
+          <span>{{ selectedTheme() }}</span>
         </button>
         <ul
           tabindex="1"
           class="dropdown-content menu bg-base-100 rounded-box z-50 w-52 p-2 shadow-sm"
         >
           @for (theme of themes; track $index) {
-            <li><a (click)="handleSelectTheme(theme)">{{theme}}</a></li>
+            <li>
+              <a (click)="handleSelectTheme(theme)">{{ theme }}</a>
+            </li>
           }
         </ul>
       </div>
@@ -91,7 +96,7 @@
             tabindex="-1"
             class="dropdown-content menu dropdown-end bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm"
           >
-            <li><a routerLink="/members/{{user.id}}">Edit profile</a></li>
+            <li><a routerLink="/members/{{ user.id }}">Edit profile</a></li>
             <li><a (click)="logOut()">Logout</a></li>
           </ul>
         </div>

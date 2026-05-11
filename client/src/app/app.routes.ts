@@ -13,6 +13,7 @@ import { MemberPhotos } from '../features/members/member-photos/member-photos';
 import { MemberMessages } from '../features/members/member-messages/member-messages';
 import { memberResolver } from '../features/members/member-resolver';
 import { preventUnsavedChangesGuard } from '../core/guards/prevent-unsaved-changes-guard';
+import { Admin } from '../features/admin/admin';
 
 export const routes: Routes = [
     {
@@ -31,7 +32,8 @@ export const routes: Routes = [
                 component: MemberDetailed,
                 children: [
                     { path: '', redirectTo: 'profile', pathMatch: 'full' },
-                    { path: 'profile', component: MemberProfile, title: 'Profile' ,
+                    {
+                        path: 'profile', component: MemberProfile, title: 'Profile',
                         canDeactivate: [preventUnsavedChangesGuard]
                     },
                     { path: 'photos', component: MemberPhotos, title: 'Photos' },
@@ -41,7 +43,8 @@ export const routes: Routes = [
 
             },
             { path: 'lists', component: Lists },
-            { path: 'messages', component: Messages }
+            { path: 'messages', component: Messages },
+            { path: 'admin', component: Admin, canActivate: [adminGuard] },
         ]
 
     },

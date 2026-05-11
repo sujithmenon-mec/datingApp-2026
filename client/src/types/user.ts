@@ -4,6 +4,7 @@ export type User = {
     imageUrl?: string;
     token: string;
     email: string;
+    roles: string[];
 }
 
 export type LoginCreds = {
@@ -16,7 +17,7 @@ export type RegisterCreds = {
     password: string;
     displayName: string;
     gender: string;
-    dateOfBirth:string;
-    ciy:string;
-    country:string;
+    dateOfBirth: string;
+    ciy: string;
+    country: string;
 }

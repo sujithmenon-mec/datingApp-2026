@@ -1,4 +1,5 @@
 using API.Controllers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DatingApp.API.Controllers
@@ -6,7 +7,7 @@ namespace DatingApp.API.Controllers
 
     public class BuggyController : BaseApiController
     {
-         [HttpGet("auth")]
+        [HttpGet("auth")]
         public ActionResult GetAuth()
         {
             return Unauthorized();
@@ -27,6 +28,13 @@ namespace DatingApp.API.Controllers
         public ActionResult GetBadRequest()
         {
             return BadRequest("This is a bad request");
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpGet("admin-secret")]
+        public ActionResult<string> GetSecretAdmin()
+        {
+            return Ok("Only admins should see this");
         }
     }
 }
