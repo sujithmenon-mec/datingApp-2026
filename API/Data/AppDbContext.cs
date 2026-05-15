@@ -13,6 +13,8 @@ public class AppDbContext(DbContextOptions options) : IdentityDbContext<AppUser>
     public DbSet<Photo> Photos { get; set; }
     public DbSet<MemberLike> Likes { get; set; }
     public DbSet<Message> Messages { get; set; }
+    public DbSet<Group> Groups { get; set; }
+    public DbSet<Connection> Connections { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -24,6 +26,22 @@ public class AppDbContext(DbContextOptions options) : IdentityDbContext<AppUser>
                 new IdentityRole { Id = "moderator-id", Name = "Moderator", NormalizedName = "MODERATOR" },
                 new IdentityRole { Id = "admin-id", Name = "Admin", NormalizedName = "ADMIN" }
             );
+
+        modelBuilder.Entity<Message>()
+            .Property(m => m.Id)
+            .HasDefaultValueSql("(lower(hex(randomblob(16))))");
+
+        modelBuilder.Entity<Message>()
+            .Property(m => m.MessageSent)
+            .HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+        modelBuilder.Entity<Member>()
+            .Property(m => m.Created)
+            .HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+        modelBuilder.Entity<Member>()
+            .Property(m => m.LastActive)
+            .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
         modelBuilder.Entity<Message>()
             .HasOne(x => x.Recipient)
