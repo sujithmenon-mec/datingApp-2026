@@ -13,7 +13,7 @@ public class MemberRepository(AppDbContext context) : IMemberRepository
         return await context.Members.FindAsync(id);
     }
 
-    public async Task<Member?> GetMemberForUpdateAsync(string id)
+    public async Task<Member?> GetMemberForUpdate(string id)
     {
         return await context.Members
             .Include(x => x.User)
@@ -53,11 +53,6 @@ public class MemberRepository(AppDbContext context) : IMemberRepository
             .Where(x => x.Id == memberId)
             .SelectMany(x => x.Photos)
             .ToListAsync();
-    }
-
-    public async Task<bool> SaveAllAsync()
-    {
-        return await context.SaveChangesAsync() > 0;
     }
 
     public void Update(Member member)
